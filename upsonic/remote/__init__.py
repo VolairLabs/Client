@@ -1,10 +1,10 @@
 
-from .on_prem import Upsonic_On_Prem, Tiger, Tiger_Admin, UpsonicOnPrem
+from .on_prem import Volair_On_Prem, Tiger, Tiger_Admin, VolairOnPrem
 
 from .helper import no_exception
 from .helper import requires
 from .interface import encrypt
 from .interface import decrypt
-from .interface import upsonic_serializer
+from .interface import Volair_serializer
 from .localimport import localimport
 from . import interface

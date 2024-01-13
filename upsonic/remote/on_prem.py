@@ -136,20 +136,20 @@ def dump_local_files(extract, debug=False, local_directory=None):
     print(local_directory) if debug else None
 
     for element, value in extract.items():
-        # Create a directory named as upsonic if not exists
-        if not os.path.exists(os.path.join(local_directory, "upsonic")):
-            os.makedirs(os.path.join(local_directory, "upsonic"))
+        # Create a directory named as volair if not exists
+        if not os.path.exists(os.path.join(local_directory, "volair")):
+            os.makedirs(os.path.join(local_directory, "volair"))
 
-        file_location = os.path.join(local_directory, "upsonic", element)
+        file_location = os.path.join(local_directory, "volair", element)
         print(file_location) if debug else None
         print(value) if debug else None
         with open(file_location, "w") as f:
             f.write(value)
 
-        sys.path.insert(0, os.path.join(local_directory, "upsonic"))
+        sys.path.insert(0, os.path.join(local_directory, "volair"))
 
 
-class Upsonic_On_Prem:
+class Volair_On_Prem:
     prevent_enable = False
     quiet_startup = False
 
@@ -239,7 +239,7 @@ class Upsonic_On_Prem:
         self.enable_active = False
 
         self.cache_dir = (
-            os.path.join(os.path.dirname(os.path.realpath(__file__)), "upsonic_cache")
+            os.path.join(os.path.dirname(os.path.realpath(__file__)), "Volair_cache")
             if cache_dir == None
             else cache_dir
         )
@@ -248,14 +248,14 @@ class Upsonic_On_Prem:
 
         if self.status == True:
             self._log(
-                "Upsonic active", color="green", bold=True,
+                "Volair active", color="green", bold=True,
             )
             self._log(
                 f"Welcome {self.get_username()}" , color="white", bold=False, 
             )
         else:
             self._log(
-                "Upsonic is down", color="red", bold=True,
+                "Volair is down", color="red", bold=True,
             )
 
         self.thread_number = 5
@@ -303,7 +303,7 @@ class Upsonic_On_Prem:
             response = self._send_request(method="GET", endpoint="/my/username")
             return response
         except Exception as e:
-            return "to Upsonic"
+            return "to Volair"
     
     def system_diagnostic(self):
         diagnostic_data = {
@@ -501,7 +501,7 @@ class Upsonic_On_Prem:
         the_all_imports = {}
         for i in the_all:
             original_i = i
-            if "_upsonic_" in i:
+            if "_Volair_" in i:
                 continue
             if sub_module_name != False:
                 i = i.replace(original_name, module_name)
@@ -631,8 +631,8 @@ class Upsonic_On_Prem:
             elif inspect.isclass(element):
                 name = element.__module__ + "." + element.__name__
             if (
-                "upsonic.remote" not in name
-                and "upsonic_updater" not in name
+                "volair.remote" not in name
+                and "Volair_updater" not in name
                 and name != f"{module.__name__}.threading.Thread"
             ):
                 my_list.append(element)
@@ -734,7 +734,7 @@ class Upsonic_On_Prem:
         elif callable(value):
             pass 
         else:
-            self._log("Error: Upsonic only supports string, integer, float, and functions.")
+            self._log("Error: Volair only supports string, integer, float, and functions.")
             return False
 
 
@@ -777,7 +777,7 @@ class Upsonic_On_Prem:
         the_code = textwrap.dedent(extract_source(value, key=key)) if code == None else code
 
         # Preparation of Requirements
-        the_requirements = Upsonic_On_Prem.export_requirement()
+        the_requirements = Volair_On_Prem.export_requirement()
         the_original_requirements = ""
         if self.tester:
             self._log(f"The first original requirements {the_original_requirements}")
@@ -1830,25 +1830,25 @@ Do not import the anythink, They are already imported.
         return __version__
 
 
-class UpsonicOnPrem(Upsonic_On_Prem):
+class VolairOnPrem(Volair_On_Prem):
     pass
 
 
 def Tiger():
-    return Upsonic_On_Prem(
-        "https://api_tiger.upsonic.co",
+    return Volair_On_Prem(
+        "https://api_tiger.volair.co",
         "ACK_xmxIiqsgGySvBPPd55M0Ldm5AcR2kt6r3kmL52Ptqo",
-        engine="upsonic_serializer",
+        engine="Volair_serializer",
         pass_python_version_check=True,
         enable_auto_requirements=True,
     )
 
 
 def Tiger_Admin(api_url:str, access_key:str):
-    return Upsonic_On_Prem(
+    return Volair_On_Prem(
         api_url,
         access_key,
-        engine="upsonic_serializer",
+        engine="Volair_serializer",
         pass_python_version_check=True,
         enable_auto_requirements=True,
     )

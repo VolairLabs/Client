@@ -4,7 +4,7 @@ import os
 import sys
 
 
-from upsonic import Upsonic_Cloud
+from volair import Volair_Cloud
 
 
 class test_object:
@@ -19,7 +19,7 @@ def my_function():
 class TestCloud(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.remote = Upsonic_Cloud(
+        cls.remote = Volair_Cloud(
             os.environ.get("CLOUD_TEST_DATABASE_NAME", "cloud-workflow")
         )
 

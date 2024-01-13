@@ -14,7 +14,7 @@ import pickle
 import importlib.util
 
 
-def upsonic_serializer(func):
+def Volair_serializer(func):
     the_source = dill.source.findsource(func)
     the_full_string = ""
     for each in the_source[0]:
@@ -50,7 +50,7 @@ def encrypt(key, message, engine, byref, recurse, protocol, source, builtin):
         dumped = cloudpickle.dumps(message, protocol=protocol)
     elif engine == "dill":
         dumped = dill.dumps(message, protocol=protocol, byref=byref, recurse=recurse)
-    elif engine == "upsonic_serializer":
+    elif engine == "Volair_serializer":
         name_of_object = dill.source.getname(message)
 
         if name_of_object == None:
@@ -61,7 +61,7 @@ def encrypt(key, message, engine, byref, recurse, protocol, source, builtin):
 
         dumped = {
             "name": name_of_object,
-            "upsonic_serializer": upsonic_serializer(message),
+            "Volair_serializer": Volair_serializer(message),
         }
         dumped = pickle.dumps(dumped, protocol=1)
 
@@ -81,20 +81,20 @@ def decrypt(key, message, engine, try_to_extract_importable=False):
         loaded = cloudpickle.loads(fernet.decrypt(message))
     elif engine == "dill":
         loaded = dill.loads(fernet.decrypt(message))
-    elif engine == "upsonic_serializer":
+    elif engine == "Volair_serializer":
         loaded = pickle.loads(fernet.decrypt(message))
 
         if try_to_extract_importable:
-            return loaded["upsonic_serializer"]
+            return loaded["Volair_serializer"]
 
         def extract(code_string, function_name):
             tmp_dir = os.path.dirname(os.path.abspath(__file__))
-            tmp_file = os.path.join(tmp_dir, function_name + "_upsonic" + ".py")
+            tmp_file = os.path.join(tmp_dir, function_name + "_Volair" + ".py")
             with open(tmp_file, "w") as f:
                 f.write(code_string)
 
             spec = importlib.util.spec_from_file_location(
-                function_name + "_upsonic", tmp_file
+                function_name + "_Volair", tmp_file
             )
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
@@ -103,7 +103,7 @@ def decrypt(key, message, engine, try_to_extract_importable=False):
 
             return getattr(module, function_name)
 
-        loaded = extract(loaded["upsonic_serializer"], loaded["name"])
+        loaded = extract(loaded["Volair_serializer"], loaded["name"])
 
     return loaded
 

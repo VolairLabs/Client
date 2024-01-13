@@ -4,7 +4,7 @@ import os
 import sys
 
 
-from upsonic import Upsonic_Cloud_Pro
+from volair import Volair_Cloud_Pro
 
 
 class ptest_object:
@@ -19,7 +19,7 @@ def pmy_function():
 class TestCloudPro(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.remote = Upsonic_Cloud_Pro(
+        cls.remote = Volair_Cloud_Pro(
             os.environ.get("CLOUD_TEST_DATABASE_NAME", "cloud-workflow"),
             os.environ.get("CLOUD_PRO_ACCESS_KEY"),
         )

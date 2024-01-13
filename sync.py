@@ -3,7 +3,7 @@ import re
 import sys
 
 def write_version(version):
-    with open("upsonic/__init__.py", "r+") as file:
+    with open("volair/__init__.py", "r+") as file:
         content = file.read()
         content = re.sub(r"__version__ = '.*'", f"__version__ = '{version}'", content)  # fmt: skip
         file.seek(0)

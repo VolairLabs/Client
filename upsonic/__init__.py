@@ -10,21 +10,21 @@ with warnings.catch_warnings():
 
 
 try:
-    from .core import Upsonic
+    from .core import Volair
     from .core import start_location
     from .core import HASHES
-    from .core import Upsonic_Serial
+    from .core import Volair_Serial
 
 except:
     pass
 
 from .remote import localimport
-from .remote import Upsonic_On_Prem, Tiger, Tiger_Admin, UpsonicOnPrem
+from .remote import Volair_On_Prem, Tiger, Tiger_Admin, VolairOnPrem
 from .remote import no_exception
 from .remote import requires
 from .remote import encrypt
 from .remote import decrypt
-from .remote import upsonic_serializer
+from .remote import Volair_serializer
 from .remote import interface
 
 
