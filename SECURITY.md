@@ -2,4 +2,4 @@
 
 ## Reporting a Vulnerability
 
-Use `info@volair.co`
+Use `volairlabs@gmail.com`
